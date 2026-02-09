@@ -5,7 +5,7 @@ Objectifs:
 -Définir ce que le Raspberry doit recevoire et envoyer 
 -Choisir les technologies de communication adaptées
 -Commencer l’architecture globale du projet
-
+-commencer les tests pour fairel’application C++.
 Déroulement de la séance:
 
 Identification des contraintes :
@@ -30,6 +30,25 @@ Choix des moyens de communication :
 
 Architecture globale 
 - Création d'un schéma synoptique sur draw.io qui montre tout l'architecture du projet
+
+-Configuration système :
+activation SSH
+activation du port série
+activation du SPI
+-Installation des outils de développement :
+compilateur C++
+outils de compilation
+headers du noyau Linux
+Compréhension de l’accès matériel sous Linux (user space / kernel space)
+Création de l’arborescence du projet C++
+
+
+-Configuration du port série du Raspberry Pi
+-Définition d’un format de trame ER temporaire (simulation)
+-Mise en place d’une architecture logicielle modulaire :
+gestion du port série (prévue)
+décodage des trames ER
+simulateur de données ER
 
 
 -Étudier le tavaille ER :
