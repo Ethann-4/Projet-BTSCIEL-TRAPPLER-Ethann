@@ -1,1 +1,13 @@
-Jour 2 
+Jour 3
+Objectif :
+-Avancer dans l'application C++  :
+-Compilation C++ multi-fichiers
+-Gestion des headers système
+-Simulation des trame de données ER 
+-Faire une architecture logicielle propre
+-faire en sort qu'il soit prêt pour RS232 réel
+-Rajoute des option : 
+-Chaque mesure doit possedé une date + heure
+-Les données doivent etre regroupées dans une structure claire
+-Les valeurs doivent etre cohérentes et exploitables
+-Le code doit etre prêt pour la base de données distante
