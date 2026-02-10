@@ -1,5 +1,4 @@
-Jour 3
-Objectif :
+Jour 3 :
 -Avancer dans l'application C++  :
 -Compilation C++ multi-fichiers
 -Gestion des headers système
@@ -7,7 +6,13 @@ Objectif :
 -Faire une architecture logicielle propre
 -faire en sort qu'il soit prêt pour RS232 réel
 -Rajoute des option : 
--Chaque mesure doit possedé une date + heure
--Les données doivent etre regroupées dans une structure claire
--Les valeurs doivent etre cohérentes et exploitables
+-Chaque mesure possedé une date + heure
+-Les données sont regroupées dans une structure claire
+-Les valeurs sont cohérentes et exploitables
 -Le code doit etre prêt pour la base de données distante
+
+
+Implémentation horodatage :date, heure
+Création d’une structure Mesure
+Vérification cohérence des données
+Tests avec données ER(simuler)
