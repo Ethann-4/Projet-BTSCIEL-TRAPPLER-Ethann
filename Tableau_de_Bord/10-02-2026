@@ -3,3 +3,20 @@ Objectifs :
 
 Préparer les données pour le stockage distant
 Rendre le système lisible localement
+
+Mettre en place un affichage local sur le Raspberry Pi afin de rendre le système lisible directement sur site, sans dépendre de la communication réseau.
+L’affichage devait présenter les informations principales : consommation d’eau, énergie solaire et heure.
+
+Vérification et activation de l’interface SPI du Raspberry Pi.
+Définition de l’architecture logicielle dédiée à l’affichage (module LCDSPI).
+Implémentation d’un driver SPI simulé, permettant de tester l’affichage sans dépendre du matériel réel.
+Initialisation de l’afficheur LCD via une classe dédiée.
+Affichage des données issues du traitement ER (valeurs simulées) :
+consommation d’eau,
+énergie solaire.
+Mise en place d’un rafraîchissement périodique de l’affichage.
+Gestion des erreurs simples :
+-détection d’une mauvaise initialisation de l’afficheur,
+-contrôle des lignes d’affichage.
+
+bibliotéque spi ou i2c
