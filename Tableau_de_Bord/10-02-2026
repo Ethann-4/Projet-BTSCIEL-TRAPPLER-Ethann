@@ -4,8 +4,11 @@ Objectifs :
 Préparer les données pour le stockage distant
 Rendre le système lisible localement
 
-Mettre en place un affichage local sur le Raspberry Pi afin de rendre le système lisible directement sur site, sans dépendre de la communication réseau.
+-Mettre en place un affichage local sur le Raspberry Pi afin de rendre le système lisible directement sur site, sans dépendre de la communication réseau.
 L’affichage devait présenter les informations principales : consommation d’eau, énergie solaire et heure.
+
+-Mettre en place la liaison entre le Raspberry Pi et le serveur web afin d’envoyer automatiquement les mesures (eau, énergie, etc)
+vers la base de données distante hébergée sur le site web de mathis (consoeau.chez.com via Laragon / SQL), en vue d’un affichage et d’un stockage centralisé.
 
 Vérification et activation de l’interface SPI du Raspberry Pi.
 Définition de l’architecture logicielle dédiée à l’affichage (module LCDSPI).
@@ -19,4 +22,38 @@ Gestion des erreurs simples :
 -détection d’une mauvaise initialisation de l’afficheur,
 -contrôle des lignes d’affichage.
 
+Choix du mode de communication :
+envoi des données via requêtes HTTP (POST) depuis le Raspberry Pi.
+Préparation du code C++ côté Raspberry :
+génération de données simulées (en attendant les vraies données ER),
+structuration des données (eau, énergie, horodatage),
+formatage des données pour l’envoi réseau.
+Tests de communication réseau depuis le Raspberry Pi :
+vérification de la connexion au réseau,
+tests de requêtes vers le serveur web.
+Coordination avec Mathis :
+définition des champs nécessaires dans la base de données,
+cohérence entre les données envoyées et la structure SQL.
+
+Fonctionne :
+-Raspberry Pi peut envoyer des données vers un serveur distant de mathis.
+-Les données sont prêtes à être stockées dans la base sql.
+-Fonctionnement validé avec des données simulées, que l'on remplacera par la suit.
+-Données bien envoyer a la base de donnée de Mathis
+- Architecture compatible avec le site web développé par Mathis.
+
+Difficultés rencontrées
+Envoi des données vers la base de données :
+le Raspberry ne peut pas écrire directement dans la base SQL,
+donc on doit passer par un script serveur.
+Synchronisation entre :
+le format des données envoyées (C++),
+les champs de la base de données (SQL).
+Gestion des erreurs réseau :
+serveur non accessible,données mal formatées,absence de réponse du serveur.
+
+J'ai donc utiliser des requêtes HTTP standard post pour la compatibilité.
+j'ai mise en place de données simulées pour avancer sans bloquer dans le projet.
+
+Afficheur SPI
 bibliotéque spi ou i2c
