@@ -1,0 +1,60 @@
+Journal de bord – Projet Débitmètre Solaire
+Semaine 7 – Préparation Revue 1
+Objectifs :
+
+Structurer et formaliser l’architecture logicielle
+Préparer les éléments techniques pour la Revue 1
+Finaliser la partie autonomie du système Raspberry
+Mettre en place le démarrage automatique et la gestion des logs
+
+Travaux réalisés
+Réalisation des diagrammes UML
+Afin de préparer la Revue 1, j’ai travaillé sur la modélisation du système :
+Diagramme de classes (C++)
+Représentation des classes principales : ERSimulator, ERFrame,Mesure,HttpClient,LCDSPI,TimeUtils,Logger
+-Mise en évidence des relations entre les modules :
+-Structuration propre du projet en couches (acquisition, traitement, affichage, réseau)
+-Validation de la cohérence de l’architecture logicielle
+
+
+Diagramme de séquence (vision système)
+Création d’un diagramme de séquence représentant :
+Réception des données RS232 (cartes ER)
+Parsing et validation des données
+Ajout horodatage
+Affichage local via SPI
+Envoi HTTP vers le serveur distant
+Stockage en base de données
+Retour de confirmation
+
+Mise en place de l’autonomie du système (en cour)
+Démarrage automatique au boot
+Création d’un service systemd
+Configuration du lancement automatique de l’exécutable
+Ajout d’une attente réseau (network-online.target)
+Ajout d’un délai de sécurité au démarrage
+
+
+Gestion des logs
+Mise en place d’un système de logs :
+system.log → événements normaux
+error.log → erreurs réseau / HTTP / trames invalides
+Cela permet : Diagnostic rapide ,Analyse en cas de dysfonctionnement, Validation du fonctionnement en continu
+
+Difficultés rencontrées
+Problème principal :
+
+L’application envoyait correctement les données en mode manuel (./er_system)
+mais ne les envoyait pas au démarrage automatique.
+
+Le service systemd démarrait avant que le réseau soit pleinement opérationnel.
+
+Solution :
+
+Modification du service avec network-online.target
+
+Ajout d’un délai avant exécution
+
+Tests après redémarrage complet
+
+Cette étape m’a permis de comprendre la gestion des services Linux et l’ordre de démarrage système.
