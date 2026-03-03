@@ -1,0 +1,13 @@
+Aujourd’hui, j’ai poursuivi l’avancement du projet en travaillant principalement sur la préparation de la Revue 1.
+
+Dans un premier temps, j’ai continué la création du PowerPoint de présentation. 
+J’ai structuré les diapositives afin d’avoir une progression logique entre le contexte du projet, la problématique, l’architecture globale et les différents diagrammes UML. L’objectif était d’améliorer la clarté de la présentation et de rendre l’explication plus fluide à l’oral.
+
+Ensuite, j’ai réalisé le diagramme de cas d’utilisation. Ce diagramme représente le fonctionnement global du système et les interactions entre les acteurs et le système complet. 
+Il permet de montrer les grandes fonctionnalités attendues, comme la mesure des données, l’enregistrement, la transmission et la consultation à distance. Ce travail m’a permis de mieux formaliser la vision globale du projet.
+
+J’ai également conçu le diagramme de séquence. Celui-ci est davantage centré sur la partie logicielle embarquée sur le Raspberry Pi. Il illustre l’enchaînement des actions : 
+lecture des données via l’interface série, ajout de l’horodatage, affichage sur l’écran SPI, puis transmission via le modem 3G vers le serveur distant. Ce diagramme permet de visualiser le comportement dynamique du système et de vérifier la cohérence des échanges entre les composants.
+
+Enfin, j’ai ajusté l’organisation du PowerPoint afin d’intégrer ces nouveaux diagrammes de manière cohérente dans la présentation. 
+J’ai veillé à ce que chaque diagramme soit accompagné d’une explication claire pour l’oral.
