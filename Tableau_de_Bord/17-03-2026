@@ -1,0 +1,12 @@
+Continuation du lancement automatique de l'appliquation 
+j’ai utiliser depuis le pc windows le root ssh en mettant "PermitRootLogin yes" , ce n’est pas sécuriser mais sa ne marche pas sinon
+on utilise cela car normalement les logs ne peuvent pas etre visualiser dans le raspberry "car isoler" dans on le consulte via ssh sur un autre pc
+
+
+Information supp pris parle l'er pour la suit de la compréention du projet :  
+
+-Envoie donner de requête envers les cart er et aussi envoyé l'heure 
+-Allume raspberry a midi jusqu'à" ce que je mets ok"
+-Envoie de "requeste" pour que les cartes envoie les données (vers 12H)
+-Envoie l'heure car il doit allumer le raspberry tous les midis donc il faut qu'il a l'heure 
+-la carte compte tout seul l'heure mais il faut lui redonner l'heure pour qu'il puisse se recalibrer et ne pas être déréglé
