@@ -3,7 +3,7 @@ j’ai utiliser depuis le pc windows le root ssh en mettant "PermitRootLogin yes
 on utilise cela car normalement les logs ne peuvent pas etre visualiser dans le raspberry "car isoler" dans on le consulte via ssh sur un autre pc
 pour l'instant , il marche uniquement lorsque l'on faire manuellement lorsqu'on le lance via ./bin/er_system quand je suis dans /root/projet_raspberry 
 donc pourquoi sa pose un probleme quand c’est automatique au lancement .
-
+ma question est la suivant : pourquoi sa marche lorsque l'on fait manuellement , sa marche même avec le proxy, mais par contre sa pose probleme lorsque il se lance au démarage du raspberry?(Echec envoi HTTP vers serveur distant)
 
 Information supp pris parle l'er pour la suit de la compréention du projet :  
 
