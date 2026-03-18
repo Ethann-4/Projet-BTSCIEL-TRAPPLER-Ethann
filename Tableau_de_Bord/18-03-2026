@@ -1,0 +1,8 @@
+
+Résolution du probleme d'envoie des données lors du lancement automatique de l'application au lancement du raspberry,
+c'etais parce que     
+-Le lycée utilise un proxy pour sortir sur Internet et peut bloquer le ping/ICMP et les connexions directes vers l’extérieur.
+-C’est pour ça que apt update fonctionne (HTTP via le proxy) mais ping 8.8.8.8 ne passe pas.
+donc il fallait rajouter dans [Service] :
+Environment="http_proxy=http://10.129.254.254:3128"
+Environment="https_proxy=http://10.129.254.254:3128"
