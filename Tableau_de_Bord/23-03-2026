@@ -1,0 +1,118 @@
+Mettre en place la partie physique du matèriel : 
+
+2 liaisons différentes :
+
+- I2C (afficheur LCD)
+---Communication logique 3.3V (direct Raspberry)
+- RS232 (carte ER)
+--- Communication niveau RS232 (±12V) ❌ PAS compatible direct Raspberry
+- Donc il faut un convertisseur RS232 ↔ TTL
+
+ MATÉRIEL NÉCESSAIRE
+ 
+-Raspberry Pi (avec GPIO)
+-Adaptateur GPIO → breadboard
+-Fils Dupont
+-Afficheur LCD I2C (type 16x2 ou 20x4)
+-Convertisseur RS232 ↔ TTL (type MAX3232 ⚠️ pas MAX232)
+-Carte ER
+
+AFFICHAGE I2C
+Objectif :
+
+Affiche :
+débit eau
+énergie solaire
+heure
+Connexion LCD I2C → Raspberry
+LCD I2C	Raspberry Pi GPIO
+VCC	5V (Pin 2 ou 4)
+GND	GND (Pin 6)
+SDA	GPIO2 (Pin 3)
+SCL	GPIO3 (Pin 5)
+
+Schéma simple :
+LCD   →   Raspberry
+VCC   →   5V
+GND   →   GND
+SDA   →   GPIO2
+SCL   →   GPIO3
+
+À faire côté Raspberry
+
+Activer I2C :
+sudo raspi-config
+→ Interface Options → I2C → Enable
+PARTIE 2 — LIAISON RS232 (TRÈS IMPORTANT)
+PROBLÈME
+
+Le Raspberry utilise du TTL (3.3V)
+La carte ER en RS232 utilise du ±12V
+
+👉 Si tu branches direct → tu détruis le Raspberry
+
+✅ SOLUTION
+
+👉 Utiliser un module MAX3232
+
+🔌 Schéma global
+Carte ER (RS232)
+        ↓
+   MAX3232
+        ↓
+Raspberry (GPIO UART)
+🔌 Connexion MAX3232
+🔹 Côté Raspberry (TTL)
+MAX3232	Raspberry
+VCC	3.3V
+GND	GND
+TX	RX (GPIO15 - Pin 10)
+RX	TX (GPIO14 - Pin 8)
+
+👉 ⚠️ TX ↔ RX croisé
+
+🔹 Côté RS232 (carte ER)
+MAX3232	Carte ER
+R1IN	TX carte ER
+T1OUT	RX carte ER
+GND	GND
+🧠 Schéma simplifié
+Carte ER TX → MAX3232 → Raspberry RX
+Carte ER RX ← MAX3232 ← Raspberry TX
+⚙️ 🔧 CONFIGURATION RASPBERRY (UART)
+1️⃣ Activer UART
+sudo raspi-config
+→ Interface Options → Serial
+→ Disable login shell
+→ Enable serial port
+2️⃣ Vérifier port
+ls /dev/serial0
+ RÉSUMÉ GLOBAL DU CÂBLAGE
+🟢 I2C (afficheur)
+4 fils
+direct GPIO
+RS232
+passe par MAX3232
+croisement TX/RX
+alimentation 3.3V
+⚠️ ERREURS CLASSIQUES À ÉVITER
+
+❌ Brancher RS232 direct sur GPIO
+❌ Utiliser MAX232 (5V uniquement) → préfère MAX3232
+❌ Oublier GND commun
+❌ Inverser TX/RX
+
+CONSEIL TRÈS IMPORTANT
+
+Test en 2 étapes :
+
+Test I2C seul
+scanner :
+i2cdetect -y 1
+Test série seul
+utiliser :
+minicom
+
+ou
+
+screen /dev/serial0 9600
