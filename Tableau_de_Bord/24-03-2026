@@ -1,0 +1,28 @@
+Intégration de l'Écran OLED par I2C :
+
+Configuration Matérielle et Système
+La première phase a consisté à préparer l'environnement de travail sur le Raspberry Pi 2.
+
+Activation du bus I2C : Utilisation de l'outil raspi-config pour activer les interfaces de communication, suivi d'un redémarrage pour charger les modules noyau.
+
+Câblage : Branchement de l'écran OLED sur les broches GPIO (VCC sur 3.3V, GND, SDA sur GPIO2 et SCL sur GPIO3).
+
+Test de connectivité : Vérification de la présence de l'écran sur le bus à l'aide de la commande i2cdetect -y 1. L'écran a été correctement identifié à l'adresse 0x3C.
+
+Développement du Pilote (Driver)
+L'objectif était de piloter l'écran sans dépendre de bibliothèques lourdes, en écrivant directement dans les registres via l'interface /dev/i2c-1.
+-Création de la classe OLEDI2C : Développement des fichiers OLEDI2C.h et .cpp dans le dossier src/display.
+-Séquence d'initialisation : Implémentation des commandes d'allumage, de configuration du contraste et du mode d'adressage (Horizontal Addressing Mode).
+-Gestion du Buffer : Mise en place d'un tampon mémoire (buffer) de 1024 octets ($128 \times 64 / 8$) pour manipuler l'affichage en local avant de l'envoyer vers l'écran.
+
+Étape 3 : Création de la Matrice de Caractères
+Le défi principal a été de permettre l'affichage de texte sur un écran qui ne gère nativement que des pixels.
+
+-Génération de la police : Création d'une matrice de caractères 5x7. Chaque lettre est définie par un tableau d'octets représentant ses colonnes de pixels.
+-Mapping ASCII : Développement d'une fonction fillFont() pour mapper manuellement les codes ASCII (chiffres, majuscules comme le 'K' pour le message "OK", minuscules et symboles) 
+vers leurs représentations graphiques.
+-Algorithme de dessin : Écriture de la méthode drawString qui convertit une chaîne de caractères 
+en signaux binaires injectés directement dans le buffer graphique à des coordonnées $(x, y)$ précises.
+
+près plusieurs tests de compilation avec g++, l'écran est désormais pleinement opérationnel.
+Le système est capable d'afficher des messages de statut clairs, ce qui valide la couche de communication basse-niveau du projet.
