@@ -1,0 +1,57 @@
+#include <iostream>
+#include <string>
+#include <unistd.h>
+
+#include "serial/SerialPort.h"
+#include "er/ERProtocol.h"
+#include "utils/TimeUtils.h"
+
+int main() {
+    std::cout << "[TEST] Demarrage test serie..." << std::endl;
+
+    SerialPort serial;
+
+    std::cout << "[TEST] Ouverture de /dev/serial0 en 9600 bauds..." << std::endl;
+    if (!serial.openPort("/dev/serial0", 9600)) {
+        std::cerr << "[ERREUR] Impossible d'ouvrir le port serie" << std::endl;
+        return 1;
+    }
+
+    std::cout << "[TEST] Port serie ouvert" << std::endl;
+
+    ERProtocol proto(serial);
+
+    std::string date = TimeUtils::nowDate();
+    std::string time = TimeUtils::nowTime();
+
+    std::cout << "[TEST] Envoi TIME..." << std::endl;
+    if (!proto.sendTime(date, time)) {
+        std::cerr << "[ERREUR] Echec envoi TIME" << std::endl;
+        return 1;
+    }
+    std::cout << "[TEST] TIME envoye : " << date << " " << time << std::endl;
+
+    usleep(200000); // 200 ms
+
+    std::cout << "[TEST] Envoi REQUEST..." << std::endl;
+    if (!proto.sendRequest()) {
+        std::cerr << "[ERREUR] Echec envoi REQUEST" << std::endl;
+        return 1;
+    }
+    std::cout << "[TEST] REQUEST envoye" << std::endl;
+
+    std::cout << "[TEST] Attente de la trame..." << std::endl;
+    std::string frame = proto.readFrame();
+
+    std::cout << "[TEST] Trame recue : " << frame << std::endl;
+
+    std::cout << "[TEST] Envoi OK..." << std::endl;
+    if (!proto.sendOK()) {
+        std::cerr << "[ERREUR] Echec envoi OK" << std::endl;
+        return 1;
+    }
+    std::cout << "[TEST] OK envoye" << std::endl;
+
+    std::cout << "[TEST] Fin du test serie" << std::endl;
+    return 0;
+}
