@@ -1,0 +1,18 @@
+#include "OLEDI2C.h"
+
+int main() {
+
+    OLEDI2C oled;
+
+    if (!oled.init()) return 1;
+
+    oled.clear();
+
+    oled.drawString(0, 0, "Eau: 123");
+    oled.drawString(0, 16, "Energie: 45");
+    oled.drawString(0, 32, "OK");
+
+    oled.display();
+
+    return 0;
+}
