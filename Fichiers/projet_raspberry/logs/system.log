@@ -1,0 +1,32 @@
+2026-02-11 15:14:45 | Affichage SPI mis à jour
+2026-02-11 15:14:45 | Mesure envoyée au serveur avec succès
+2026-02-11 15:49:28 | === Démarrage de l'application Raspberry ===
+2026-02-11 15:49:28 | LCD SPI initialisé
+2026-02-11 15:49:28 | Mesure reçue : eau=4383 energie=88.599998
+2026-02-11 15:49:28 | Affichage SPI mis à jour
+2026-02-11 15:51:43 | Mesure reçue : eau=2777 energie=91.500000
+2026-02-11 15:51:43 | Affichage SPI mis à jour
+2026-02-11 15:53:56 | Mesure reçue : eau=2793 energie=33.500000
+2026-02-11 15:53:56 | Affichage SPI mis à jour
+2026-02-11 15:55:33 | === Démarrage de l'application Raspberry ===
+2026-02-11 15:55:33 | LCD SPI initialisé
+2026-02-11 15:55:33 | Mesure reçue : eau=4383 energie=88.599998
+2026-02-11 15:55:33 | Affichage SPI mis à jour
+2026-02-11 15:58:06 | Mesure reçue : eau=2777 energie=91.500000
+2026-02-11 15:58:06 | Affichage SPI mis à jour
+2026-02-11 16:00:19 | Mesure reçue : eau=2793 energie=33.500000
+2026-02-11 16:00:19 | Affichage SPI mis à jour
+2026-02-11 16:02:32 | Mesure reçue : eau=386 energie=49.200001
+2026-02-11 16:02:32 | Affichage SPI mis à jour
+2026-02-11 16:04:45 | Mesure reçue : eau=1649 energie=42.099998
+2026-02-11 16:04:45 | Affichage SPI mis à jour
+2026-02-11 16:05:47 | === Démarrage de l'application Raspberry ===
+2026-02-11 16:05:47 | LCD SPI initialisé
+2026-02-11 16:05:47 | Mesure reçue : eau=4383 energie=88.599998
+2026-02-11 16:05:47 | Affichage SPI mis à jour
+2026-02-11 16:05:48 | Mesure envoyée au serveur avec succès
+2026-02-11 16:05:50 | Mesure reçue : eau=2777 energie=91.500000
+2026-02-11 16:05:50 | Affichage SPI mis à jour
+2026-02-11 16:05:51 | Mesure envoyée au serveur avec succès
+2026-02-11 16:05:53 | Mesure reçue : eau=2793 energie=33.500000
+2026-02-11 16:05:53 | Affichage SPI mis à jour
