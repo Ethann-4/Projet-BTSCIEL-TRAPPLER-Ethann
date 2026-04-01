@@ -1,0 +1,5 @@
+Etant donner que nous n'avons pas encore le systeme de lilian ,
+on a utiliser un raspberry pou rsimuler les données , mais cette fois si , non pas dans mon raspberry , c'est a dire simulation intren , 
+on a fait une simulation extern en branche les cable rx et tx des deux raspberry 
+en les croisant pour pouvoir valider le fait de recevoir des valeur externe est les traiter , c'est a dire voir si le raspberry 
+envoivraiment les Requestes , et OK  et qu'il affiche bien tout 
