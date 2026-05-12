@@ -1,0 +1,157 @@
+#include <iostream>
+#include <unistd.h>
+#include <fcntl.h>
+#include <termios.h>
+#include <cstring>
+#include <cstdlib>
+#include <ctime>
+
+void infoStep(const std::string& msg) {
+    std::cout << "[INFO] " << msg << std::endl;
+}
+
+void errorStep(const std::string& msg) {
+    std::cerr << "[ERREUR] " << msg << std::endl;
+}
+
+bool configureSerial(int fd) {
+    struct termios tty;
+
+    if (tcgetattr(fd, &tty) != 0) {
+        errorStep("tcgetattr echoue");
+        return false;
+    }
+
+    cfsetispeed(&tty, B9600);
+    cfsetospeed(&tty, B9600);
+
+    // 8N1
+    tty.c_cflag |= (CLOCAL | CREAD);
+    tty.c_cflag &= ~PARENB;
+    tty.c_cflag &= ~CSTOPB;
+    tty.c_cflag &= ~CSIZE;
+    tty.c_cflag |= CS8;
+
+    // Mode brut
+    tty.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
+    tty.c_iflag &= ~(IXON | IXOFF | IXANY);
+    tty.c_iflag &= ~(INLCR | ICRNL | IGNCR);
+    tty.c_oflag &= ~OPOST;
+
+    tty.c_cc[VMIN] = 0;
+    tty.c_cc[VTIME] = 1; // 0.1 s
+
+    if (tcsetattr(fd, TCSANOW, &tty) != 0) {
+        errorStep("tcsetattr echoue");
+        return false;
+    }
+
+    tcflush(fd, TCIOFLUSH);
+    return true;
+}
+
+std::string readLine(int fd) {
+    std::string line;
+    char c;
+
+    while (true) {
+        int n = read(fd, &c, 1);
+
+        if (n > 0) {
+            if (c == '\n') {
+                break;
+            }
+            if (c != '\r') {
+                line += c;
+            }
+        } else {
+            usleep(10000);
+        }
+    }
+
+    return line;
+}
+
+bool writeLine(int fd, const std::string& line) {
+    std::string msg = line + "\n";
+    ssize_t totalWritten = 0;
+    ssize_t toWrite = static_cast<ssize_t>(msg.size());
+
+    while (totalWritten < toWrite) {
+        ssize_t n = write(fd, msg.c_str() + totalWritten, toWrite - totalWritten);
+        if (n < 0) {
+            errorStep("Erreur ecriture serie");
+            return false;
+        }
+        totalWritten += n;
+    }
+
+    tcdrain(fd);
+    return true;
+}
+
+int main() {
+    srand(time(nullptr));
+
+    infoStep("=== DEMARRAGE SIMULATEUR ER ===");
+
+    int serial = open("/dev/serial0", O_RDWR | O_NOCTTY | O_NDELAY);
+    if (serial < 0) {
+        errorStep("Impossible d'ouvrir le port serie");
+        return 1;
+    }
+
+    fcntl(serial, F_SETFL, 0);
+
+    if (!configureSerial(serial)) {
+        close(serial);
+        return 1;
+    }
+
+    infoStep("Port serie initialise en 9600 8N1");
+
+    std::string lastTime = "";
+
+    while (true) {
+        infoStep("En attente d'une commande...");
+        std::string data = readLine(serial);
+
+        infoStep("Recu : " + data);
+
+        // TIME:YYYY-MM-DD HH:MM:SS
+        if (data.rfind("TIME:", 0) == 0) {
+            lastTime = data.substr(5);
+            infoStep("Synchronisation heure recue : " + lastTime);
+        }
+
+        // REQUEST
+        else if (data == "REQUEST") {
+            infoStep("REQUEST recue -> generation des donnees");
+
+            int water = rand() % 4000 + 1000;
+            float energy = (rand() % 1000) / 10.0f;
+
+            char frame[100];
+            snprintf(frame, sizeof(frame), "WATER=%d;ENERGY=%.2f", water, energy);
+
+            if (!writeLine(serial, frame)) {
+                errorStep("Echec envoi trame");
+            } else {
+                infoStep(std::string("Trame envoyee : ") + frame);
+            }
+        }
+
+        // OK
+        else if (data == "OK") {
+            infoStep("OK recu -> fin du cycle");
+            infoStep("Retour en attente d'une nouvelle commande");
+        }
+
+        else {
+            infoStep("Commande inconnue");
+        }
+    }
+
+    close(serial);
+    return 0;
+}
