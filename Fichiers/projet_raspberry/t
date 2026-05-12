@@ -1,1 +1,30 @@
+// Synchronisation horaire
+proto.sendTime(date, time);
 
+// Demande des données
+proto.sendRequest();
+
+// Réception de la trame série
+std::string frame = proto.readFrame();
+
+// Parsing des données
+ERData er = ERFrame::parse(frame);
+
+// Création de la mesure
+Mesure m;
+m.water = er.water;
+m.energy = er.energy;
+m.date = date;
+m.time = time;
+
+// Envoi vers le serveur
+HttpClient::sendMesure(m);
+
+// Affichage OLED
+oled.drawString(0, 0, "Eau:");
+oled.drawString(50, 0, std::to_string(m.water));
+
+oled.display();
+
+// Confirmation vers la carte ER
+proto.sendOK();
