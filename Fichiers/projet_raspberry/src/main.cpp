@@ -45,7 +45,7 @@ int main() {
     infoStep("OLED initialise");
 
     infoStep("Ouverture du port serie /dev/serial0 ...");
-    if (!serial.openPort("/dev/serial0", 9600)) {
+    if (!serial.openPort("/dev/serial0", 115200)) {
         errorStep("Erreur ouverture port serie");
         return 1;
     }
