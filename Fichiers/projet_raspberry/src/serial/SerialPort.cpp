@@ -28,7 +28,7 @@ bool SerialPort::openPort(const std::string& device, int baudrate) {
         return false;
     }
 
-    speed_t speed = B115200;
+    speed_t speed = B9600;
     switch (baudrate) {
         case 9600:   speed = B9600; break;
         case 19200:  speed = B19200; break;
