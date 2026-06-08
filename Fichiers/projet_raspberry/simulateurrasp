@@ -22,8 +22,8 @@ bool configureSerial(int fd) {
         return false;
     }
 
-    cfsetispeed(&tty, B9600);
-    cfsetospeed(&tty, B9600);
+    cfsetispeed(&tty, B115200);
+    cfsetospeed(&tty, B115200);
 
     // 8N1
     tty.c_cflag |= (CLOCAL | CREAD);
@@ -108,7 +108,7 @@ int main() {
         return 1;
     }
 
-    infoStep("Port serie initialise en 9600 8N1");
+    infoStep("Port serie initialise en 115200 8N1");
 
     std::string lastTime = "";
 
