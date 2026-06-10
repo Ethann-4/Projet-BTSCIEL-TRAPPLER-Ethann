@@ -1,5 +1,6 @@
 #include <iostream>
 #include <unistd.h>
+#include <cstdlib>
 
 #include "display/OLEDI2C.h"
 #include "serial/SerialPort.h"
@@ -28,6 +29,8 @@ void errorStep(const std::string& msg) {
 }
 
 int main() {
+
+    bool cycleOK = false;
 
     infoStep("=== DEMARRAGE SYSTEME ===");
 
@@ -145,12 +148,20 @@ int main() {
     }
 
     infoStep("OK envoye a la carte ER");
+    cycleOK = true;
+
+    
 
     // 🔷 FIN
     infoStep("FIN DU CYCLE - attente coupure");
 
     sleep(5);
 
+    if (cycleOK) {
+        infoStep("Cycle termine avec succes - extinction du raspberry");
+        system("sudo shutdown -h now");
+    }
     infoStep("Fin du programme");
+    
     return 0;
 }
