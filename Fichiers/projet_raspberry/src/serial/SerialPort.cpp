@@ -44,11 +44,11 @@ bool SerialPort::openPort(const std::string& device, int baudrate) {
     cfsetospeed(&options, speed);
 
     // 8N1
-    options.c_cflag |= (CLOCAL | CREAD);
-    options.c_cflag &= ~PARENB;
-    options.c_cflag &= ~CSTOPB;
-    options.c_cflag &= ~CSIZE;
-    options.c_cflag |= CS8;
+    options.c_cflag |= (CLOCAL | CREAD); // Active la réception de données
+    options.c_cflag &= ~PARENB;          // Pas de bit de parité 
+    options.c_cflag &= ~CSTOPB;          // 1 seul bit de stop
+    options.c_cflag &= ~CSIZE;           // Nettoie la taille des données
+    options.c_cflag |= CS8;              // Donne des blocs de 8 bits 
 
     // Mode brut
     options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
