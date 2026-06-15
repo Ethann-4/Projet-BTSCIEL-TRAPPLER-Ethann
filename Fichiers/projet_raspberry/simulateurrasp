@@ -112,6 +112,9 @@ int main() {
 
     std::string lastTime = "";
 
+    // 🔥 Valeur cumulée WATER
+    int waterValue = 23125;
+
     while (true) {
         infoStep("En attente d'une commande...");
         std::string data = readLine(serial);
@@ -128,7 +131,11 @@ int main() {
         else if (data == "REQUEST") {
             infoStep("REQUEST recue -> generation des donnees");
 
-            int water = rand() % 4000 + 1000;
+            // 🔥 Incrément aléatoire entre 0 et 250
+            int increment = rand() % 251;
+            waterValue += increment;
+            int water = waterValue;
+
             float energy = (rand() % 1000) / 10.0f;
 
             char frame[100];
