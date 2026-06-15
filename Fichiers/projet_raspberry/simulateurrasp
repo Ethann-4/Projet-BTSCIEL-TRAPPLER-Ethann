@@ -112,7 +112,7 @@ int main() {
 
     std::string lastTime = "";
 
-    // 🔥 Valeur cumulée WATER
+    // Valeur cumulée WATER
     int waterValue = 23125;
 
     while (true) {
@@ -131,7 +131,7 @@ int main() {
         else if (data == "REQUEST") {
             infoStep("REQUEST recue -> generation des donnees");
 
-            // 🔥 Incrément aléatoire entre 0 et 250
+            // Incrément aléatoire entre 0 et 250
             int increment = rand() % 251;
             waterValue += increment;
             int water = waterValue;
