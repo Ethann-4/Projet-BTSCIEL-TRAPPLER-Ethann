@@ -92,6 +92,8 @@ bool OLEDI2C::init() {
     if (fd < 0) return false;
     if (ioctl(fd, I2C_SLAVE, OLED_ADDR) < 0) return false;
 
+
+    //configuration d'usine pour l'allumage de l'écran
     unsigned char initCmds[] = {
         0xAE, 0x20, 0x00, 0xB0, 0xC8, 0x00, 0x10, 0x40,
         0x81, 0xFF, 0xA1, 0xA6, 0xA8, 0x3F, 0xA4, 0xD3,
