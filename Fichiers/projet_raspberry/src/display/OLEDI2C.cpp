@@ -118,8 +118,8 @@ void OLEDI2C::clear() {
 void OLEDI2C::drawString(int x, int y, const std::string& str) {
     for (size_t i = 0; i < str.size(); i++) {
         unsigned char c = (unsigned char)str[i];
-        int px = x + (i * 6);
-        if (px + 5 >= WIDTH) break;
+        int px = x + (i * 6); // Décale chaque lettre de 6 pixels vers la droite
+        if (px + 5 >= WIDTH) break; // si on dépasse la largeur de l'écran, on s'arrête
 
         for (int col = 0; col < 5; col++) {
             unsigned char line = font5x7[c][col];
@@ -127,8 +127,8 @@ void OLEDI2C::drawString(int x, int y, const std::string& str) {
                 if (line & (1 << row)) {
                     int py = y + row;
                     if (py < HEIGHT) {
-                        int index = (px + col) + (py / 8) * WIDTH;
-                        buffer[index] |= (1 << (py % 8));
+                        int index = (px + col) + (py / 8) * WIDTH; // Calcule la position exacte de l'octet dans le tableau linéaire (X + Y_Page * 128)
+                        buffer[index] |= (1 << (py % 8)); // Allume le bit précis (de 0 à 7) dans cet octet sans effacer les autres
                     }
                 }
             }
