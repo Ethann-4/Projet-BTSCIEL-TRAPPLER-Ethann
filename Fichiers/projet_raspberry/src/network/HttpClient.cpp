@@ -32,7 +32,8 @@ bool HttpClient::sendMesure(const Mesure& m) {
         "&energy=" + std::to_string(m.energy) +
         "&date=" + m.date +
         "&time=" + m.time;
-
+    
+    // configuration de notre requête HTTP
     curl_easy_setopt(curl, CURLOPT_URL, "http://consoeau.chez.com/api/api.php");
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postData.c_str());
 
@@ -52,18 +53,12 @@ bool HttpClient::sendMesure(const Mesure& m) {
     // Evite les problèmes avec certaines réponses
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, discardCallback);
 
-    // User-Agent simple
-    curl_easy_setopt(curl, CURLOPT_USERAGENT, "er_system/1.0");
-
-    // ⚠️ NE PAS mettre CURLOPT_PROXY à ""
-    // On laisse libcurl utiliser son comportement normal.
-
     CURLcode res = curl_easy_perform(curl);
 
     if (res != CURLE_OK) {
-        if (errbuf[0] != '\0') {
+        if (errbuf[0] != '\0') { // Si notre "boîte noire" (errbuf) contient une phrase précise
             lastError = errbuf;
-        } else {
+        } else { // Si la boîte noire est vide, on demande à cURL de traduire
             lastError = curl_easy_strerror(res);
         }
 
